@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Add to crontab to change wallpaper periodically.
+
 set -e
 
 WALLPAPER_DIR=/usr/share/backgrounds 
@@ -41,6 +43,7 @@ function choose_background {
 function set_background {
   info_log "$(date +"%Y-%m-%d %H:%M:%S") chose $1"
   gsettings set org.gnome.desktop.background picture-uri file://$1 >> /tmp/random-wallpaper.log
+  ln -sf $1 $(dirname ${BASH_SOURCE[0]})/current-wallpaper.jpg
 }
 
 ensure_dbus_set
